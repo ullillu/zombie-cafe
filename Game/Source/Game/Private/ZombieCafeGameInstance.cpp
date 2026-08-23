@@ -1,0 +1,59 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+#include "ZombieCafeGameInstance.h"
+#include "MoviePlayer.h"
+#include "Settings/CustomSettings.h"
+#include "Engine/World.h"
+#include "Blueprint/UserWidget.h"
+
+DEFINE_LOG_CATEGORY(LogZombieGameInstance);
+
+void UZombieCafeGameInstance::CreateLoadingScreen(const FString& LevelName)
+{
+	const UCustomSettings* Settings = GetDefault<UCustomSettings>();
+	if (Settings == nullptr)
+	{
+		UE_LOG(LogZombieGameInstance, Error, TEXT("%hs :: Settings must be valid!"), __FUNCTION__);
+		return;
+	}
+
+	auto LoadingScreenWidgetClass = Settings->LoadingWidgetClass.LoadSynchronous();
+	if (LoadingScreenWidgetClass == nullptr)
+	{
+		UE_LOG(LogZombieGameInstance, Error, TEXT("%hs :: LoadingScreenWidgetClass must be valid!"), __FUNCTION__);
+		return;
+	}
+
+	FLoadingScreenAttributes LoadingScreen;
+
+	LoadingScreen.bAutoCompleteWhenLoadingCompletes = false;
+
+	auto* LoadingScreenWidget = CreateWidget(GetWorld(), LoadingScreenWidgetClass);
+
+	if (LoadingScreenWidget == nullptr)
+	{
+		UE_LOG(LogZombieGameInstance, Error, TEXT("%hs :: LoadingScreenWidget must be valid!"), __FUNCTION__);
+		return;
+	}
+
+	LoadingScreen.WidgetLoadingScreen = LoadingScreenWidget->TakeWidget();
+	GetMoviePlayer()->SetupLoadingScreen(LoadingScreen);
+}
+
+void UZombieCafeGameInstance::RemoveLoadingScreen(UWorld* Level)
+{
+}
+
+void UZombieCafeGameInstance::Init()
+{
+	Super::Init();
+	FCoreUObjectDelegates::PreLoadMap.AddUObject(this, &ThisClass::CreateLoadingScreen);
+	FCoreUObjectDelegates::PostLoadMapWithWorld.AddUObject(this, &ThisClass::RemoveLoadingScreen);
+}
+
+void UZombieCafeGameInstance::Shutdown()
+{
+	FCoreUObjectDelegates::PreLoadMap.RemoveAll(this);
+	FCoreUObjectDelegates::PostLoadMapWithWorld.RemoveAll(this);
+
+	Super::Shutdown();
+}
