@@ -18,7 +18,7 @@ class UZombieCafeGameInstance : public UGameInstance
 public:
 
 	void CreateLoadingScreen(const FString& LevelName);
-	void RemoveLoadingScreen(UWorld* Level);
+	void LoadMapCompleted(UWorld* Level);
 
 	virtual void Init() override;
 	virtual void Shutdown() override;

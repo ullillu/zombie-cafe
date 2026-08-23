@@ -2,6 +2,7 @@
 #include "ZombieCafeGameInstance.h"
 #include "MoviePlayer.h"
 #include "Settings/CustomSettings.h"
+#include "Settings/ZombieGameUserSettings.h"
 #include "Engine/World.h"
 #include "Blueprint/UserWidget.h"
 
@@ -16,6 +17,13 @@ void UZombieCafeGameInstance::CreateLoadingScreen(const FString& LevelName)
 		return;
 	}
 
+	auto MoviePlayer = GetMoviePlayer();
+	if (MoviePlayer == nullptr)
+	{
+		UE_LOG(LogZombieGameInstance, Error, TEXT("%hs :: MoviePlayer must be valid!"), __FUNCTION__);
+		return;
+	}
+
 	auto LoadingScreenWidgetClass = Settings->LoadingWidgetClass.LoadSynchronous();
 	if (LoadingScreenWidgetClass == nullptr)
 	{
@@ -25,7 +33,7 @@ void UZombieCafeGameInstance::CreateLoadingScreen(const FString& LevelName)
 
 	FLoadingScreenAttributes LoadingScreen;
 
-	LoadingScreen.bAutoCompleteWhenLoadingCompletes = false;
+	LoadingScreen.bAutoCompleteWhenLoadingCompletes = true;
 
 	auto* LoadingScreenWidget = CreateWidget(GetWorld(), LoadingScreenWidgetClass);
 
@@ -39,15 +47,23 @@ void UZombieCafeGameInstance::CreateLoadingScreen(const FString& LevelName)
 	GetMoviePlayer()->SetupLoadingScreen(LoadingScreen);
 }
 
-void UZombieCafeGameInstance::RemoveLoadingScreen(UWorld* Level)
+void UZombieCafeGameInstance::LoadMapCompleted(UWorld* Level)
 {
+	auto* UserSettings = UZombieGameUserSettings::GetZombieUserSettings(); 
+	if (UserSettings == nullptr)
+	{
+		UE_LOG(LogZombieGameInstance, Error, TEXT("%hs :: UserSettings must be valid!"), __FUNCTION__);
+		return;
+	}
+
+	UserSettings->LoadSettings(false);
 }
 
 void UZombieCafeGameInstance::Init()
 {
 	Super::Init();
 	FCoreUObjectDelegates::PreLoadMap.AddUObject(this, &ThisClass::CreateLoadingScreen);
-	FCoreUObjectDelegates::PostLoadMapWithWorld.AddUObject(this, &ThisClass::RemoveLoadingScreen);
+	FCoreUObjectDelegates::PostLoadMapWithWorld.AddUObject(this, &ThisClass::LoadMapCompleted);
 }
 
 void UZombieCafeGameInstance::Shutdown()
