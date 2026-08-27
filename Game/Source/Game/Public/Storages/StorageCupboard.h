@@ -7,6 +7,7 @@
 #include "StorageCupboard.generated.h"
 
 class UStaticMeshComponent;
+class UStorageComponent;
 
 UCLASS()
 class GAME_API AStorageCupboard : public AActor
@@ -30,10 +31,14 @@ protected:
 	TArray<TObjectPtr<UStaticMeshComponent>> ShelvesComponents;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int ShelvesNum = 4;
+	TObjectPtr<UStorageComponent> StorageComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 ShelvesNum = 4;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 
 };

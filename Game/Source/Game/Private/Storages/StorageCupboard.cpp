@@ -3,6 +3,7 @@
 
 #include "Storages/StorageCupboard.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/StorageComponent.h"
 
 // Sets default values
 AStorageCupboard::AStorageCupboard()
@@ -12,6 +13,8 @@ AStorageCupboard::AStorageCupboard()
 
 	MainMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MainMesh"));
 	MainMesh->SetupAttachment(GetRootComponent());
+
+	StorageComponent = CreateDefaultSubobject<UStorageComponent>(TEXT("StorageComponent"));
 
 	ShelvesComponents.Empty();
 

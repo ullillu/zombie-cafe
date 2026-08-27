@@ -15,6 +15,9 @@ struct FFoodRowBase : public FTableRowBase
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString Id;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FText Name;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

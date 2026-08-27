@@ -7,6 +7,7 @@
 #include "ZombieCafeGameInstance.generated.h"
 
 class UWorld;
+class UZombieSaveGame;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogZombieGameInstance, Log, All);
 
@@ -23,6 +24,10 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 
+	TObjectPtr<UZombieSaveGame> GetSaveGame() const;
 
+private:
+
+	TWeakObjectPtr<UZombieSaveGame> SaveGame;
 
 };

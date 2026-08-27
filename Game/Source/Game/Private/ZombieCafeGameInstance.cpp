@@ -5,6 +5,7 @@
 #include "Settings/ZombieGameUserSettings.h"
 #include "Engine/World.h"
 #include "Blueprint/UserWidget.h"
+#include "ZombieSaveGame.h"
 
 DEFINE_LOG_CATEGORY(LogZombieGameInstance);
 
@@ -49,6 +50,11 @@ void UZombieCafeGameInstance::CreateLoadingScreen(const FString& LevelName)
 
 void UZombieCafeGameInstance::LoadMapCompleted(UWorld* Level)
 {
+	if (SaveGame.IsValid() == false)
+	{
+		SaveGame = UZombieSaveGame::LoadZombieGame();
+	}
+
 	auto* UserSettings = UZombieGameUserSettings::GetZombieUserSettings(); 
 	if (UserSettings == nullptr)
 	{
@@ -71,5 +77,11 @@ void UZombieCafeGameInstance::Shutdown()
 	FCoreUObjectDelegates::PreLoadMap.RemoveAll(this);
 	FCoreUObjectDelegates::PostLoadMapWithWorld.RemoveAll(this);
 
+	SaveGame.Reset();
 	Super::Shutdown();
+}
+
+TObjectPtr<UZombieSaveGame> UZombieCafeGameInstance::GetSaveGame() const
+{
+	return SaveGame.Get();
 }
