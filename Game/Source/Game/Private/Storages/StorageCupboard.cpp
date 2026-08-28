@@ -4,6 +4,7 @@
 #include "Storages/StorageCupboard.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/StorageComponent.h"
+#include "GMPHelper.h"
 
 // Sets default values
 AStorageCupboard::AStorageCupboard()
@@ -24,6 +25,11 @@ AStorageCupboard::AStorageCupboard()
 		Shelf->SetupAttachment(MainMesh);
 		ShelvesComponents.Add(Shelf);
 	}
+}
+
+void AStorageCupboard::OnInteraction_Implementation()
+{
+	FGMPHelper::SendWorldMessage(GetWorld(), MSGKEY("GMP.OnInteractionClicked"), this);
 }
 
 // Called when the game starts or when spawned
