@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "InteractionInterface.generated.h"
 
+enum class EInteractionType : uint8;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI, Blueprintable)
 class UInteractionInterface : public UInterface
@@ -24,4 +26,7 @@ class GAME_API IInteractionInterface
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void OnInteraction();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	EInteractionType GetInteractionType();
 };

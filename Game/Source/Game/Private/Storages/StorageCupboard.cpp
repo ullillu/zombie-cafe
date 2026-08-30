@@ -4,6 +4,7 @@
 #include "Storages/StorageCupboard.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/StorageComponent.h"
+#include "CafeDefinitions.h"
 #include "GMPHelper.h"
 
 // Sets default values
@@ -30,6 +31,11 @@ AStorageCupboard::AStorageCupboard()
 void AStorageCupboard::OnInteraction_Implementation()
 {
 	FGMPHelper::SendWorldMessage(GetWorld(), MSGKEY("GMP.OnInteractionClicked"), this);
+}
+
+EInteractionType AStorageCupboard::GetInteractionType_Implementation()
+{
+	return EInteractionType::StorageCupboard;
 }
 
 // Called when the game starts or when spawned

@@ -9,6 +9,7 @@
 
 class UStaticMeshComponent;
 class UStorageComponent;
+enum class EInteractionType : uint8;
 
 UCLASS()
 class GAME_API AStorageCupboard : public AActor, public IInteractionInterface
@@ -20,6 +21,7 @@ public:
 	AStorageCupboard();
 
 	void OnInteraction_Implementation() override;
+	EInteractionType GetInteractionType_Implementation() override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
