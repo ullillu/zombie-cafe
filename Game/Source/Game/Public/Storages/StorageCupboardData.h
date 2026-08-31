@@ -19,15 +19,14 @@ struct FStorageCupboardProductsData
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Count;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ExpirationDate;
 };
 
 USTRUCT(BlueprintType)
 struct FStorageCupboardData
 {
 	GENERATED_USTRUCT_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 AvailableShelves;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FStorageCupboardProductsData> Products;

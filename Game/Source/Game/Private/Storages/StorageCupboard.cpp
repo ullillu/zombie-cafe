@@ -20,12 +20,16 @@ AStorageCupboard::AStorageCupboard()
 
 	ShelvesComponents.Empty();
 
-	for (int i = 0; i < ShelvesNum; i++)
+	if (StorageComponent)
 	{
-		auto Shelf = CreateDefaultSubobject<UStaticMeshComponent>(*FString("Shelf_" + FString::FromInt(i)));
-		Shelf->SetupAttachment(MainMesh);
-		ShelvesComponents.Add(Shelf);
+		for (int i = 0; i < StorageComponent->GetShelvesNum(); i++)
+		{
+			auto Shelf = CreateDefaultSubobject<UStaticMeshComponent>(*FString("Shelf_" + FString::FromInt(i)));
+			Shelf->SetupAttachment(MainMesh);
+			ShelvesComponents.Add(Shelf);
+		}
 	}
+
 }
 
 void AStorageCupboard::OnInteraction_Implementation()

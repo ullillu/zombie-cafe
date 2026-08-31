@@ -26,19 +26,23 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SaveItemsInCupboard();
 
+	int32 GetShelvesNum() const { return ShelvesNum; }
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 ShelvesNum = 4;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 ShelfCapacity = 3;
+	int32 ShelfCapacity = 4;
+
+	UPROPERTY(BlueprintReadOnly)
+	FStorageCupboardData Data;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-
-private:
-	UPROPERTY()
-	FStorageCupboardData Data;
 };

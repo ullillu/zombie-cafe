@@ -17,6 +17,9 @@ public:
 	UFUNCTION(BlueprintPure, FieldNotify)
 	EInteractionType GetInteractionType() const { return Type; }
 
+	UFUNCTION(BlueprintPure, FieldNotify)
+	AActor* GetActorForInteracted() const { return ActorForInteracted; }
+
 protected:
 	// Begin of UBaseViewModel override
 	virtual void ViewModelInitialize(AActor* InActor) override;
@@ -24,6 +27,10 @@ protected:
 	//~End of UBaseViewModel override
 
 	void HandleOnPlayerInteraction(AActor* InteractedActor);
+	void HandleOnStorageUpdated(AActor* InteractedActor);
+
+	UPROPERTY()
+	TObjectPtr<AActor> ActorForInteracted;
 
 private:
 	void InitManagersBindings();

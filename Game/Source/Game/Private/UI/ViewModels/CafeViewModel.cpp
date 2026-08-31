@@ -22,10 +22,12 @@ void UCafeViewModel::ViewModelClear()
 void UCafeViewModel::InitManagersBindings()
 {
 	FGMPHelper::ListenWorldMessage(GetWorld(), MSGKEY("GMP.OnInteractionClicked"), this, &ThisClass::HandleOnPlayerInteraction);
+	FGMPHelper::ListenWorldMessage(GetWorld(), MSGKEY("GMP.OnStorageUpdated"), this, &ThisClass::HandleOnStorageUpdated);
 }
 
 void UCafeViewModel::ClearManagersBindings()
 {
+	FGMPHelper::UnbindMessage(MSGKEY("GMP.OnStorageUpdated"), this, &ThisClass::HandleOnStorageUpdated);
 	FGMPHelper::UnbindMessage(MSGKEY("GMP.OnInteractionClicked"), this, &ThisClass::HandleOnPlayerInteraction);
 }
 
@@ -33,7 +35,17 @@ void UCafeViewModel::HandleOnPlayerInteraction(AActor* InteractedActor)
 {
 	if (IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(InteractedActor))
 	{
+		ActorForInteracted = InteractedActor;
 		Type = InteractionInterface->Execute_GetInteractionType(InteractedActor);
 		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(GetInteractionType);
+		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(GetActorForInteracted);
+	}
+}
+
+void UCafeViewModel::HandleOnStorageUpdated(AActor* InteractedActor)
+{
+	if (ActorForInteracted == InteractedActor)
+	{
+		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(GetActorForInteracted);
 	}
 }

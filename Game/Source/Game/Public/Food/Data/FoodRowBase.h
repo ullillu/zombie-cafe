@@ -15,11 +15,11 @@ struct FFoodRowBase : public FTableRowBase
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString Id;
+	FText Name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FText Name;
-	
+	FText Description;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<UStaticMesh> Mesh;
 

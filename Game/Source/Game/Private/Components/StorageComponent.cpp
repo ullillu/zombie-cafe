@@ -4,6 +4,7 @@
 #include "Components/StorageComponent.h"
 #include "ZombieCafeGameInstance.h"
 #include "ZombieSaveGame.h"
+#include "GMPHelper.h"
 
 // Sets default values for this component's properties
 UStorageComponent::UStorageComponent()
@@ -21,12 +22,14 @@ bool UStorageComponent::AddItemToCupboard(const FStorageCupboardProductsData& Pr
 	if (ProductData)
 	{
 		ProductData->Count += Product.Count;
+		FGMPHelper::SendWorldMessage(GetWorld(), MSGKEY("GMP.OnStorageUpdated"), GetOwner());
 		return true;
 	}
 
-	if ((ShelfCapacity * Data.AvailableShelves) > Data.Products.Num())
+	if ((ShelfCapacity * ShelvesNum) > Data.Products.Num())
 	{
-		Data.Products.Add(Product); 
+		Data.Products.Add(Product);
+		FGMPHelper::SendWorldMessage(GetWorld(), MSGKEY("GMP.OnStorageUpdated"), GetOwner());
 		return true;
 	}
 	return false;

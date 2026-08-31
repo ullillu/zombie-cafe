@@ -37,9 +37,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UStorageComponent> StorageComponent;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int32 ShelvesNum = 4;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
