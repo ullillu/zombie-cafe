@@ -58,9 +58,9 @@ TArray<AActor*> UInteractionComponents::GetActorsAtMousePosition(APlayerControll
 	TArray<FOverlapResult> OverlapResults;
 
 	FCollisionObjectQueryParams ObjectQueryParams;
-	/*ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);*/
+	//ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+	//ObjectQueryParams.AddObjectTypesToQuery(ECC_GameTraceChannel1);
+	//ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
 
 	FCollisionQueryParams OverlapParams;
 

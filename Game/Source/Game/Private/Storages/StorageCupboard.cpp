@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/StorageComponent.h"
 #include "CafeDefinitions.h"
+#include "Components/BoxComponent.h"
 #include "GMPHelper.h"
 
 // Sets default values
@@ -15,6 +16,11 @@ AStorageCupboard::AStorageCupboard()
 
 	MainMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MainMesh"));
 	MainMesh->SetupAttachment(GetRootComponent());
+	MainMesh->SetCollisionProfileName("NoCollision", false);
+
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+	BoxCollision->SetCollisionProfileName("Interactable", false);
+
 
 	StorageComponent = CreateDefaultSubobject<UStorageComponent>(TEXT("StorageComponent"));
 
@@ -26,15 +32,11 @@ AStorageCupboard::AStorageCupboard()
 		{
 			auto Shelf = CreateDefaultSubobject<UStaticMeshComponent>(*FString("Shelf_" + FString::FromInt(i)));
 			Shelf->SetupAttachment(MainMesh);
+			Shelf->SetCollisionProfileName("NoCollision", false);
 			ShelvesComponents.Add(Shelf);
 		}
 	}
 
-}
-
-void AStorageCupboard::OnInteraction_Implementation()
-{
-	FGMPHelper::SendWorldMessage(GetWorld(), MSGKEY("GMP.OnInteractionClicked"), this);
 }
 
 EInteractionType AStorageCupboard::GetInteractionType_Implementation()

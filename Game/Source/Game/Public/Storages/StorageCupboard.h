@@ -9,6 +9,7 @@
 
 class UStaticMeshComponent;
 class UStorageComponent;
+class UBoxComponent;
 enum class EInteractionType : uint8;
 
 UCLASS()
@@ -20,7 +21,6 @@ public:
 	// Sets default values for this actor's properties
 	AStorageCupboard();
 
-	void OnInteraction_Implementation() override;
 	EInteractionType GetInteractionType_Implementation() override;
 protected:
 	// Called when the game starts or when spawned
@@ -33,6 +33,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<TObjectPtr<UStaticMeshComponent>> ShelvesComponents;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<UBoxComponent> BoxCollision;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UStorageComponent> StorageComponent;
