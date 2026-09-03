@@ -4,10 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "CafeDefinitions.h"
+#include "Slate/WidgetTransform.h"
 #include "FoodRowBase.generated.h"
 
 class UStaticMesh;
 class UTexture2D;
+
+USTRUCT(BlueprintType)
+struct FReadyProductData
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftObjectPtr<UTexture2D> ReadyProductIcon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftObjectPtr<UStaticMesh> ReadyProductMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<EFoodType> FoodTypes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<EDrinkType> DrinkTypes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 LimitInFood = 4;
+};
 
 USTRUCT()
 struct FFoodRowBase : public FTableRowBase
@@ -25,5 +48,9 @@ struct FFoodRowBase : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<UTexture2D> Icon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FReadyProductData ReadyProductData;
+
 
 };
