@@ -16,6 +16,12 @@ AStorageCupboard::AStorageCupboard()
 
 	MainMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MainMesh"));
 	MainMesh->SetupAttachment(GetRootComponent());
+	MainMesh->SetCollisionProfileName("NoCollision", false);
+
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+	BoxCollision->SetCollisionProfileName("Interactable", false);
+
+
 	StorageComponent = CreateDefaultSubobject<UStorageComponent>(TEXT("StorageComponent"));
 
 	ShelvesComponents.Empty();
@@ -26,6 +32,7 @@ AStorageCupboard::AStorageCupboard()
 		{
 			auto Shelf = CreateDefaultSubobject<UStaticMeshComponent>(*FString("Shelf_" + FString::FromInt(i)));
 			Shelf->SetupAttachment(MainMesh);
+			Shelf->SetCollisionProfileName("NoCollision", false);
 			ShelvesComponents.Add(Shelf);
 		}
 	}

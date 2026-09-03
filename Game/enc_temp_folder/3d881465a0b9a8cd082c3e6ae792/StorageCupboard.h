@@ -35,6 +35,9 @@ protected:
 	TArray<TObjectPtr<UStaticMeshComponent>> ShelvesComponents;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<UBoxComponent> BoxCollision;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UStorageComponent> StorageComponent;
 
 public:	

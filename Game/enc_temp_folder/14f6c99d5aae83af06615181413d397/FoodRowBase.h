@@ -29,7 +29,7 @@ struct FReadyProductData
 	TArray<EDrinkType> DrinkTypes;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 ProductLimit = 1;
+	int32 LimitInFood = 4;
 };
 
 USTRUCT()
