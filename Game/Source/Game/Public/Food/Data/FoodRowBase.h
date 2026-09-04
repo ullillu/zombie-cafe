@@ -52,5 +52,10 @@ struct FFoodRowBase : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FReadyProductData ReadyProductData;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bIsBase = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bIsAdditive = false;
 
 };

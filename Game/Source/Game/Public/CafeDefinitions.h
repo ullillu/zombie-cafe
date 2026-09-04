@@ -37,4 +37,5 @@ enum class EDrinkType : uint8
 	Lemonade,
 	Cofe,
 	Tea,
+	MilkProduct,
 };
