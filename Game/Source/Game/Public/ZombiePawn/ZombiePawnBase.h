@@ -22,7 +22,7 @@ protected:
 
 protected:
 	void DeselectZombie();
-	void HandleOnPlayerInteraction(AActor* InteractedActor, FHitResult HitResult);
+	void HandleOnPlayerInteraction(FHitResult HitResult,const TArray<AActor*>& Actors);
 
 	void MoveZombieToClickPosition(FHitResult HitResult);
 public:	

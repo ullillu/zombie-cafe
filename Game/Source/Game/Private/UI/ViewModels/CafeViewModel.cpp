@@ -31,12 +31,15 @@ void UCafeViewModel::ClearManagersBindings()
 	FGMPHelper::UnbindMessage(MSGKEY("GMP.OnInteractionClicked"), this, &ThisClass::HandleOnPlayerInteraction);
 }
 
-void UCafeViewModel::HandleOnPlayerInteraction(AActor* InteractedActor)
+void UCafeViewModel::HandleOnPlayerInteraction(FHitResult HitResult, const TArray<AActor*>& InteractedActors)
 {
-	if (IInteractionInterface* InteractionInterface = Cast<IInteractionInterface>(InteractedActor))
+	const auto InteractedActor = InteractedActors.FindByPredicate([](const AActor* Actor) { return IsValid(Actor) && Actor->Implements<UInteractionInterface>(); });
+
+	if (InteractedActor)
 	{
-		ActorForInteracted = InteractedActor;
-		Type = InteractionInterface->Execute_GetInteractionType(InteractedActor);
+		ActorForInteracted = *InteractedActor;
+		Type = IInteractionInterface::Execute_GetInteractionType(ActorForInteracted);
+
 		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(GetInteractionType);
 		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(GetActorForInteracted);
 	}

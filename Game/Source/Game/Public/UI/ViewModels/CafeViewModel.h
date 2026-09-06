@@ -26,7 +26,7 @@ protected:
 	virtual void ViewModelClear() override;
 	//~End of UBaseViewModel override
 
-	void HandleOnPlayerInteraction(AActor* InteractedActor);
+	void HandleOnPlayerInteraction(FHitResult HitResult, const TArray<AActor*>& InteractedActors);
 	void HandleOnStorageUpdated(AActor* InteractedActor);
 
 	UPROPERTY()

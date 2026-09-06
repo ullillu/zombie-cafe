@@ -12,10 +12,12 @@ void AZombiePawnBase::DeselectZombie()
 	SetSelected(false);
 }
 
-void AZombiePawnBase::HandleOnPlayerInteraction(AActor* InteractedActor, FHitResult HitResult)
+void AZombiePawnBase::HandleOnPlayerInteraction(FHitResult HitResult, const TArray<AActor*>& Actors)
 {
-	auto* InteractedZombie = Cast<AZombiePawnBase>(InteractedActor);
-	if (InteractedZombie)
+
+	AZombiePawnBase* InteractedZombie = nullptr;
+
+	if (Actors.FindItemByClass(&InteractedZombie))
 	{
 		SetSelected(this == InteractedZombie);
 		return;
