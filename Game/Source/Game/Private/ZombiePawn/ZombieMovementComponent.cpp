@@ -19,12 +19,6 @@ float UZombieMovementComponent::GetMaxSpeed() const
 
 void UZombieMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
-    UE_LOG(
-        LogTemp,
-        Warning,
-        TEXT("RequestDirectMove: %s"),
-        *MoveVelocity.ToString()
-    );
 
     if (MoveVelocity.IsNearlyZero())
     {
@@ -123,4 +117,9 @@ bool UZombieMovementComponent::CanStartPathFollowing() const
 bool UZombieMovementComponent::CanStopPathFollowing() const
 {
     return true;
+}
+
+void UZombieMovementComponent::SetMaxSpeed(float Speed)
+{
+    MaxSpeed = Speed;
 }

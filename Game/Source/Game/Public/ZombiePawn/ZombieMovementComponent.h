@@ -30,6 +30,8 @@ public:
     virtual bool CanStartPathFollowing() const override;
     virtual bool CanStopPathFollowing() const override;
 
+    void SetMaxSpeed(float Speed);
+
 protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie|Movement")
