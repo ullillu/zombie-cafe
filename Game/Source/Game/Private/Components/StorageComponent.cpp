@@ -76,6 +76,19 @@ void UStorageComponent::SaveItemsInCupboard()
 }
 
 
+void UStorageComponent::UpdateExpirationDate()
+{
+	for (auto& TempProduct: Data.Products)
+	{
+		if (TempProduct.ExpirationDate < 1.f)
+		{
+			continue;
+		}
+
+		TempProduct.ExpirationDate--;
+	}
+}
+
 // Called when the game starts
 void UStorageComponent::BeginPlay()
 {
@@ -86,6 +99,9 @@ void UStorageComponent::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%hs :: GetWorld must be valid!"), __FUNCTION__);
 		return;
 	}
+
+	GetWorld()->GetTimerManager().SetTimer(UpdateExpirationDateTimer, this, &ThisClass::UpdateExpirationDate, 1.0f, true);
+
 	auto* GI = Cast<UZombieCafeGameInstance>(GetWorld()->GetGameInstance());
 	if (GI == nullptr)
 	{
@@ -106,6 +122,16 @@ void UStorageComponent::BeginPlay()
 	}
 }
 
+
+void UStorageComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (GetWorld())
+	{
+		GetWorld()->GetTimerManager().ClearTimer(UpdateExpirationDateTimer);
+	}
+
+	Super::EndPlay(EndPlayReason);
+}
 
 // Called every frame
 void UStorageComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

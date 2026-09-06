@@ -41,7 +41,7 @@ struct FFoodRowBase : public FTableRowBase
 	FText Name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FText Description;
+	FText ShortName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<UStaticMesh> Mesh;
@@ -58,4 +58,6 @@ struct FFoodRowBase : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bIsAdditive = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ExpirationData = -1.f;
 };

@@ -29,8 +29,11 @@ public:
 	int32 GetShelvesNum() const { return ShelvesNum; }
 
 protected:
+	void UpdateExpirationDate();
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int32 ShelvesNum = 4;
@@ -44,5 +47,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+private:
+
+	FTimerHandle UpdateExpirationDateTimer;
 
 };
