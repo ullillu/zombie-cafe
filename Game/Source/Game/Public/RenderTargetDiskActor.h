@@ -2,11 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InteractionInterface.h"
 #include "RenderTargetDiskActor.generated.h"
 
 class UImage;
 class UTexture2D;
 class UTextureRenderTarget2D;
+enum class EInteractionType : uint8;
 
 /**
  * Saves a render target to a PNG file and loads it back at runtime.
@@ -17,12 +19,14 @@ class UTextureRenderTarget2D;
  * The implementation uses runtime APIs and works in packaged builds.
  */
 UCLASS(BlueprintType, Blueprintable)
-class GAME_API ARenderTargetDiskActor : public AActor
+class GAME_API ARenderTargetDiskActor : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
 
 public:
 	ARenderTargetDiskActor();
+
+	EInteractionType GetInteractionType_Implementation() override;
 
 	/** Render target whose current contents will be saved. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Render Target|Disk")

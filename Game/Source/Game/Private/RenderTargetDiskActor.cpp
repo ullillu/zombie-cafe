@@ -8,6 +8,7 @@
 #include "ImageUtils.h"
 #include "Kismet/KismetRenderingLibrary.h"
 #include "Misc/FileHelper.h"
+#include "CafeDefinitions.h"
 #include "Misc/Paths.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogRenderTargetDiskActor, Log, All);
@@ -15,6 +16,11 @@ DEFINE_LOG_CATEGORY_STATIC(LogRenderTargetDiskActor, Log, All);
 ARenderTargetDiskActor::ARenderTargetDiskActor()
 {
 	PrimaryActorTick.bCanEverTick = false;
+}
+
+EInteractionType ARenderTargetDiskActor::GetInteractionType_Implementation()
+{
+	return EInteractionType::MenuCreater;
 }
 
 bool ARenderTargetDiskActor::SaveFileOnDisk(const FString& FileName)

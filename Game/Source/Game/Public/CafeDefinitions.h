@@ -11,6 +11,7 @@ enum class EInteractionType : uint8
 {
 	None,
 	StorageCupboard,
+	MenuCreater,
 
 };
 

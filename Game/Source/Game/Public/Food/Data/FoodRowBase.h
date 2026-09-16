@@ -29,7 +29,7 @@ struct FReadyProductData
 	TArray<EDrinkType> DrinkTypes;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 ProductLimit = 1;
+	int ProductLimitInFood = 3;
 };
 
 USTRUCT()
@@ -57,6 +57,9 @@ struct FFoodRowBase : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bIsAdditive = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float Price = 100.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float ExpirationData = -1.f;
