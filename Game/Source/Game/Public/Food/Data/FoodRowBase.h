@@ -63,4 +63,11 @@ struct FFoodRowBase : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float ExpirationData = -1.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ForceOnlyFoodCategories = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ForceOnlyDrinkCategories = false;
+
 };
